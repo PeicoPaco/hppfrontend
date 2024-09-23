@@ -1,0 +1,29 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height */
+  background-color: #f5f5f5; /* Light background for contrast */
+}
+
+.login-form {
+  padding: 2rem;
+  border-radius: 10px; /* Rounded corners */
+  background-color: white; /* Form background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 300px; /* Set a fixed width */
+}
+
+.submit-button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+mat-form-field {
+  width: 100%; /* Set form fields to take up full width */
+}
+
+button.mat-icon-button {
+  margin-left: -48px; /* To align icon properly */
+}

@@ -1,1 +1,31 @@
-<p>staff works!</p>
+<div *ngIf="staffList.length > 0; else noData">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Health Center ID</th>
+          <th>Role ID</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>Deleted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let staff of staffList">
+          <td>{{ staff.id }}</td>
+          <td>{{ staff.name }}</td>
+          <td>{{ staff.healthcenter_id }}</td>
+          <td>{{ staff.role_id }}</td>
+          <td>{{ staff.created_at }}</td>
+          <td>{{ staff.updated_at }}</td>
+          <td>{{ staff.is_deleted ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noData>
+    <p>No staff data available</p>
+  </ng-template>
+  
