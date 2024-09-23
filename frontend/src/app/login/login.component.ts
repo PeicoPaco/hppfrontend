@@ -50,7 +50,7 @@ export class LoginComponent {
     event.stopPropagation();
   }
 
-   updateErrorMessage() {
+  updateErrorMessage() {
     if (this.email.hasError('required')) {
       this.errorMessage.set('You must enter a value');
     } else if (this.email.hasError('email')) {
