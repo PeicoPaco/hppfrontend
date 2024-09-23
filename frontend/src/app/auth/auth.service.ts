@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
   private router = inject(Router);
   private http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:3000/api/v1/auth/login';
+  private readonly baseUrl = `${environment.apiUrl}/auth/login`;
 
   constructor() {}
 
