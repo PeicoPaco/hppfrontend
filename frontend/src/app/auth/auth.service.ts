@@ -58,4 +58,12 @@ export class AuthService {
     const parsedTokens = JSON.parse(tokens);
     return parsedTokens.role ? parsedTokens.role : null;
   }  
+
+  getHealthcareId(): string | null {
+    const tokens: any = localStorage.getItem(this.JWT_TOKEN);
+    if (!tokens) return null;
+  
+    const parsedTokens = JSON.parse(tokens);
+    return parsedTokens.healthcareId ? parsedTokens.healthcareId : null;
+  }
 }

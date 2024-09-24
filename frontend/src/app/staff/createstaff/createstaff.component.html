@@ -1,24 +1,31 @@
-<form [formGroup]="form" (ngSubmit)="createStaffEvent($event)" class="staff-form">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Staff Name</mat-label>
-      <input matInput formControlName="name" placeholder="Enter staff name" />
-      <mat-error *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched">
-        Name is required
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Role ID</mat-label>
-      <input matInput formControlName="role_id" placeholder="Enter role ID" />
-      <mat-error *ngIf="form.controls['role_id'].hasError('required') && form.controls['role_id'].touched">
-        Role ID is required
-      </mat-error>
-    </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-      Create Staff
-    </button>
-  
-    <mat-error *ngIf="errorMessage()">{{ errorMessage() }}</mat-error>
+<div class="form-container">
+  <h2><strong>Nuevo Staff</strong></h2>
+  <form [formGroup]="form" (ngSubmit)="createStaffEvent($event)" class="staff-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Staff Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter staff name" />
+        <mat-error *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Select Role</mat-label>
+        <mat-select formControlName="role_id">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{ role.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['role_id'].hasError('required') && form.controls['role_id'].touched">
+          Role is required
+        </mat-error>
+      </mat-form-field>
+    
+      <button mat-raised-button type="submit" [disabled]="form.invalid">
+        Create Staff
+      </button>
+    
+      <mat-error *ngIf="errorMessage()">{{ errorMessage() }}</mat-error>
   </form>
+</div>
   

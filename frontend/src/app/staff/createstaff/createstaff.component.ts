@@ -5,9 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StaffService } from '../../service/staff.service';
+import { AuthService } from '../../auth/auth.service';
+import { RoleService, Role } from '../../service/role.service';
+import { MatSelectModule } from '@angular/material/select';
+import { SnackbarService } from '../../service/snackbar.service';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -26,6 +29,7 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    MatSelectModule,
     CommonModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,11 +38,14 @@ import { CommonModule } from '@angular/common';
 })
 export class CreatestaffComponent {
   form: FormGroup;
-
+  roles: Role[] = [];
   errorMessage = signal('');
 
   private staffService = inject(StaffService);
-  private fb = inject(FormBuilder)
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private roleService = inject(RoleService);
+  private snackbarService = inject(SnackbarService);
 
   constructor() {
     this.form = this.fb.group({
@@ -46,6 +53,10 @@ export class CreatestaffComponent {
       role_id: ['', Validators.required]
     });
 
+    this.roleService.getAllRoles().subscribe({
+      next: (roles) => this.roles = roles,
+      error: (err) => this.errorMessage.set(err.message)
+    });
     // Subscribe to form status and value changes
     merge(this.form.statusChanges, this.form.valueChanges)
       .pipe(takeUntilDestroyed())
@@ -59,13 +70,26 @@ export class CreatestaffComponent {
       return;
     }
 
+    const healthcareId = this.authService.getHealthcareId(); // Retrieve healthcareId
+
+    if (!healthcareId) {
+      this.errorMessage.set('Healthcare ID not found.');
+      return;
+    }
+
     this.staffService.createStaff({
       name: this.form.controls['name'].value ?? '',
       role_id: this.form.controls['role_id'].value ?? '',
-      healthcenter_id: '90ca2fcb-de37-4822-8352-309f06dd19fc',
+      healthcenter_id: healthcareId,
     })
     .subscribe({
-      error: (err) => this.errorMessage.set(err.message),
+      next: () => {
+        this.snackbarService.show('Staff created successfully!');
+      },
+      error: (err) => {
+        console.error('Error creating staff:', err);
+        this.snackbarService.show('Failed to create staff. Please try again');
+      } 
     })
   }
 }
