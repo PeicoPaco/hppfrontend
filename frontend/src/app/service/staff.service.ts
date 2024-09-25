@@ -38,7 +38,7 @@ export class StaffService {
 
   // Update an existing staff member
   updateStaff(id: string, staff: Partial<Staff>): Observable<Staff> {
-    return this.http.put<Staff>(`${this.apiUrl}/${id}`, staff);
+    return this.http.patch<Staff>(`${this.apiUrl}/${id}`, staff);
   }
 
   // Delete a staff member
