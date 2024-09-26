@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../auth/auth.service';
+import { RoleDictionaryService } from '../service/role-dictionary.service';
 import {
   FormControl,
   FormsModule,
@@ -38,6 +39,7 @@ export class LoginComponent {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private roleDictionaryService = inject(RoleDictionaryService);
 
   constructor() {
     merge(this.email.statusChanges, this.email.valueChanges)
@@ -73,7 +75,10 @@ export class LoginComponent {
         password: this.password.value ?? '',
       })
       .subscribe({
-        next: () => this.router.navigate(['/staff']),
+        next: () => {
+          this.roleDictionaryService.initializeRoleDictionary();
+          this.router.navigate(['/staff'])
+        },
         error: (err) => this.errorMessage.set(err.message),
       });
   }
