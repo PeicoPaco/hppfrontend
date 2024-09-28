@@ -1,13 +1,27 @@
 <div *ngIf="staffList.length > 0; else noData">
-  <div class="staff-cards">
-    <app-card
-      *ngFor="let staff of staffList"
-      [title]="staff.name"
-      [subtitle]="staff.role_id"
-      [content]="'Member since: ' + staff.created_at"  
-    >
-      <button mat-button [routerLink]="['/staff', staff.id]">Details</button>
-    </app-card>
+  <div class="staff-cards-wrapper">
+    <div class="staff-cards">
+      <app-card
+        *ngFor="let staff of staffList"
+        [title]="staff.name"
+        [subtitle]="staff.role_id"
+        [content]="'Member since: ' + staff.created_at"
+      >
+          <mat-icon
+          class="edit-icon" 
+          aria-hidden="false" 
+          aria-label="Edit button" 
+          fontIcon="edit" 
+          [routerLink]="['/staff', staff.id]">
+          </mat-icon>
+          <mat-icon
+          class="edit-icon" 
+          aria-hidden="false" 
+          aria-label="Delete button" 
+          fontIcon="delete">
+          </mat-icon>
+      </app-card>
+    </div>
   </div>
 </div>
 

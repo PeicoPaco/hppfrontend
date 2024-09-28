@@ -1,0 +1,19 @@
+mat-card {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures the card spans full height */
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+  }

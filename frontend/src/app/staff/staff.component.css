@@ -1,0 +1,21 @@
+/* Center cards on larger screens */
+.staff-cards-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .staff-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  /* Media query for small screens to limit card width */
+  @media (max-width: 600px) {
+    .staff-cards {
+      grid-template-columns: 1fr; /* Makes each card take only 1 column */
+      max-width: 90%; /* Leaves some margin around the cards */
+    }
+  }

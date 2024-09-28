@@ -5,11 +5,12 @@ import { CardComponent } from '../components/card/card.component';
 import { RouterModule } from '@angular/router';
 import { formatDateToMonthDay } from '../utilities/date-utils';
 import { RoleDictionaryService } from '../service/role-dictionary.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-staff',
   standalone: true,
-  imports: [CommonModule, CardComponent, RouterModule], 
+  imports: [CommonModule, CardComponent, RouterModule, MatIconModule], 
   templateUrl: './staff.component.html',
   styleUrl: './staff.component.css'
 })
@@ -36,4 +37,5 @@ export class StaffComponent implements OnInit {
       }));
     });
   }
+
 }
